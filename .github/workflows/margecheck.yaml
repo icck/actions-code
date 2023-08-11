@@ -18,7 +18,7 @@ jobs:
     name: Label Check
     steps:
       - name: Set status check to success
-        if: "contains(github.event.pull_request.labels.*.name, 'マージOK')"
+        if: contains(github.event.pull_request.labels.*.name, 'マージOK')
         run: |
           curl --request POST \
             --url https://api.github.com/repos/${{github.repository}}/statuses/${{github.event.pull_request.head.sha}} \
@@ -30,7 +30,7 @@ jobs:
               "description": "マージできます"
             }'
       - name: Set status check to pending
-        if: "!contains(github.event.pull_request.labels.*.name, 'マージOK')"
+        if: !contains(github.event.pull_request.labels.*.name, 'マージOK')
         run: |
           curl --request POST \
             --url https://api.github.com/repos/${{github.repository}}/statuses/${{github.event.pull_request.head.sha}} \
