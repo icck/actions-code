@@ -1,32 +1,16 @@
-name: Pull Request Check
+name: Do Not Merge
 
 on:
   pull_request:
-    branches:
-      - main
-    types: [opened, synchronize, reopened, labeled]
-
-permissions:
-  statuses: write
+    types: [opened, reopened, labeled, unlabeled]
 
 jobs:
-  is-ready:
+  do-not-merge:
     runs-on: ubuntu-latest
-    name: Label Check
     steps:
-      - name: Check Required Label
-        id: label_check
-        uses: actions/checkout@v3
-
-      - name: Check for Label
-        run: |
-          labels=$(curl -s -H "Authorization: Bearer ${{ secrets.GITHUB_TOKEN }}" \
-                      "https://api.github.com/repos/${{ github.repository }}/pulls/${{ github.event.pull_request.number }}" | \
-                      jq -r '.labels[].name')
-          if [[ "$labels" == *"label-required"* ]]; then
-            echo "Required label found: label-required"
-          else
-            echo "Required label not found"
-            echo "Please add the 'label-required' label to this pull request."
-            exit 1
-          fi
+      - name: check labels
+        uses: mheap/github-action-required-labels@v5
+        with:
+          mode: exactly
+          count: 0
+          labels: "do not merge"
