@@ -26,8 +26,7 @@ jobs:
             "state": "success",
             "description": "マージできます"
             }"
-
-            - name: Set status check to pending
+      - name: Set status check to pending
         if: !contains(github.event.pull_request.labels.*.name, 'マージOK')
         run: |
             curl --request POST \
