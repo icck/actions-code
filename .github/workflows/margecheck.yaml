@@ -26,15 +26,15 @@ jobs:
             "state": "success",
             "description": "マージできます"
             }"
-      - name: Set status check to pending
-        if: !contains(github.event.pull_request.labels.*.name, 'マージOK')
-        run: |
-            curl --request POST \
-            --url https://api.github.com/repos/${{github.repository}}/statuses/${{github.event.pull_request.head.sha}} \
-            --header "authorization: Bearer ${{secrets.GITHUB_TOKEN}}" \
-            --header "content-type: application/json" \
-            --data "{
-            "context": "Label Check",
-            "state": "pending",
-            "description": "\"マージOK\" ラベルを付けるとマージできます"
-            }"
+      # - name: Set status check to pending
+      #   if: !contains(github.event.pull_request.labels.*.name, 'マージOK')
+      #   run: |
+      #       curl --request POST \
+      #       --url https://api.github.com/repos/${{github.repository}}/statuses/${{github.event.pull_request.head.sha}} \
+      #       --header "authorization: Bearer ${{secrets.GITHUB_TOKEN}}" \
+      #       --header "content-type: application/json" \
+      #       --data "{
+      #       "context": "Label Check",
+      #       "state": "pending",
+      #       "description": "\"マージOK\" ラベルを付けるとマージできます"
+      #       }"
