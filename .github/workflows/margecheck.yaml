@@ -12,5 +12,7 @@ jobs:
         uses: mheap/github-action-required-labels@v5
         with:
           mode: exactly
-          count: 0
-          labels: "do not merge"
+          count: 1
+          labels: "bug,enhancement,feature,question,documentation,help wanted,good first issue,invalid,wontfix"
+          add_comment: true
+          message: "This PR is being prevented from merging because the label is missing."
