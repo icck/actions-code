@@ -2,7 +2,7 @@ name: PR Label Check
 
 on:
   pull_request:
-    types: [opened, reopened, labeled, unlabeled]
+    types: [opened, reopened, synchronize, labeled, unlabeled]
 
 jobs:
   do-not-merge:
